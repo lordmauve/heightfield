@@ -1,11 +1,12 @@
 import os
+import math
 import random
 from PIL import Image
 
 
 class Surface(object):
-    def __init__(self, size):
-        self.surface = [0] * size * size
+    def __init__(self, size, fill=0):
+        self.surface = [fill] * size * size
         self.size = size
 
     def index(self, pos):
@@ -32,15 +33,15 @@ class Surface(object):
             
 
     @staticmethod
-    def make_cone(size):
+    def make_cone(size, height):
         s = Surface(size)
         w = float(size - 1)
         for x in range(size):
             for y in range(size):
                 dx = 2.0 * x / w - 1.0
                 dy = 2.0 * y / w - 1.0
-                h = max(0, (1 - abs(dx)) * (1 - abs(dy)))
-                s[x, y] = h
+                h = max(0, 1.0 - math.sqrt(dx ** 2 + dy ** 2))
+                s[x, y] = h * height
         return s
 
     def blit(self, img, x, y):
@@ -63,12 +64,14 @@ class Surface(object):
 
 
 SIZE = 256
-landscape = Surface(256)
-c = Surface.make_cone(32)
+landscape = Surface(256, fill=-1)
 
-for i in range(SIZE * 5):
-    landscape.blit(c, random.randint(0, SIZE), random.randint(0, SIZE))
+for i in range(4):
+    d = 20 * i + 20
+    c = Surface.make_cone(d, (i + 1) * 0.2)
 
-print landscape
+    for i in range(50 * (5 - i)):
+        landscape.blit(c, random.randint(-d, SIZE), random.randint(-d, SIZE))
+
 landscape.to_pil().save('out.png')
 os.system('gnome-open out.png')
