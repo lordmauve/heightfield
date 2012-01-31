@@ -1,8 +1,10 @@
+import sys
 import os
 import math
 import random
 from PIL import Image
 
+colours = Image.open('colours.png')
 
 class Surface(object):
     def __init__(self, size, fill=0):
@@ -55,23 +57,27 @@ class Surface(object):
                     pass
 
     def to_pil(self):
-        im = Image.new('L', (self.size, self.size))
+        im = Image.new(colours.mode, (self.size, self.size))
         for y in xrange(self.size):
             for x in xrange(self.size):
                 h = self[x, y]
-                im.putpixel((x, y), min(1.0, h * 0.1) * 255)
+                val = max(0, min(1.0, h * 0.1) * 255)
+                col = colours.getpixel((int(val), 0))
+                im.putpixel((x, y), col)
         return im
 
 
-SIZE = 256
-landscape = Surface(256, fill=-1)
+SIZE = 512
+landscape = Surface(256, fill=-0.25)
 
 for i in range(4):
-    d = 20 * i + 20
+    d = 25 * i + 20
     c = Surface.make_cone(d, (i + 1) * 0.2)
-
-    for i in range(50 * (5 - i)):
+    sys.stdout.write('.')
+    sys.stdout.flush()
+    for i in range(100 * (5 - i)):
         landscape.blit(c, random.randint(-d, SIZE), random.randint(-d, SIZE))
+print
 
 landscape.to_pil().save('out.png')
 os.system('gnome-open out.png')
