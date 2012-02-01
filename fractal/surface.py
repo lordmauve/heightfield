@@ -67,17 +67,18 @@ class Surface(object):
         return im
 
 
-SIZE = 512
-landscape = Surface(256, fill=-0.25)
+if __name__ == '__main__':
+    SIZE = 512
+    landscape = Surface(256, fill=-0.25)
 
-for i in range(4):
-    d = 25 * i + 20
-    c = Surface.make_cone(d, (i + 1) * 0.2)
-    sys.stdout.write('.')
-    sys.stdout.flush()
-    for i in range(100 * (5 - i)):
-        landscape.blit(c, random.randint(-d, SIZE), random.randint(-d, SIZE))
-print
+    for i in range(4):
+        d = 25 * i + 20
+        c = Surface.make_cone(d, (i + 1) * 0.2)
+        sys.stdout.write('.')
+        sys.stdout.flush()
+        for i in range(100 * (5 - i)):
+            landscape.blit(c, random.randint(-d, SIZE), random.randint(-d, SIZE))
+    print
 
-landscape.to_pil().save('out.png')
-os.system('gnome-open out.png')
+    landscape.to_pil().save('out.png')
+    os.system('gnome-open out.png')
