@@ -10,28 +10,31 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="256"
+   height="1"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="heightmap.svg">
+   sodipodi:docname="heightmap.svg"
+   inkscape:export-filename="/home/mauve/dev/heightfield/fractal/colours.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
        id="linearGradient2987">
       <stop
-         style="stop-color:#000080;stop-opacity:1"
+         style="stop-color:#1b2765;stop-opacity:1"
          offset="0"
          id="stop2989" />
       <stop
-         id="stop3026"
-         offset="0.11775777"
-         style="stop-color:#69b44b;stop-opacity:1;" />
-      <stop
-         style="stop-color:#94df40;stop-opacity:1"
+         style="stop-color:#7bf6e3;stop-opacity:1"
          offset="0.14719746"
          id="stop3028" />
+      <stop
+         id="stop3111"
+         offset="0.15028511"
+         style="stop-color:#ffffff;stop-opacity:1" />
       <stop
          id="stop2995"
          offset="0.15346482"
@@ -65,8 +68,8 @@
        inkscape:collect="always"
        xlink:href="#linearGradient2987"
        id="linearGradient2993"
-       x1="12.155746"
-       y1="86.223534"
+       x1="11.581223"
+       y1="86.267731"
        x2="268.15573"
        y2="86.466644"
        gradientUnits="userSpaceOnUse" />
@@ -78,17 +81,21 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.1132812"
-     inkscape:cx="96.640348"
-     inkscape:cy="966.21429"
+     inkscape:zoom="22.627417"
+     inkscape:cx="24.566761"
+     inkscape:cy="-1.5667928"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1214"
-     inkscape:window-height="776"
+     inkscape:window-width="1854"
+     inkscape:window-height="1176"
      inkscape:window-x="66"
      inkscape:window-y="24"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -104,9 +111,10 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-11.428572,-85.647896)">
     <rect
-       style="color:#000000;fill:url(#linearGradient2993);stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;fill-opacity:1"
+       style="color:#000000;fill:url(#linearGradient2993);fill-opacity:1;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect2985"
        width="256"
        height="1"
@@ -123,15 +131,15 @@
        sodipodi:cy="48.783836"
        sodipodi:rx="9.1168089"
        sodipodi:ry="9.2383661"
-       d="m 89.466289,48.783836 a 9.1168089,9.2383661 0 1 1 -18.233618,0 9.1168089,9.2383661 0 1 1 18.233618,0 z" />
+       d="m 89.466289,48.783836 c 0,5.102209 -4.081735,9.238366 -9.116809,9.238366 -5.035075,0 -9.116809,-4.136157 -9.116809,-9.238366 0,-5.102208 4.081734,-9.238366 9.116809,-9.238366 5.035074,0 9.116809,4.136158 9.116809,9.238366 z" />
     <path
-       d="m 89.466289,48.783836 a 9.1168089,9.2383661 0 1 1 -18.233618,0 9.1168089,9.2383661 0 1 1 18.233618,0 z"
+       d="m 89.466289,48.783836 c 0,5.102209 -4.081735,9.238366 -9.116809,9.238366 -5.035075,0 -9.116809,-4.136157 -9.116809,-9.238366 0,-5.102208 4.081734,-9.238366 9.116809,-9.238366 5.035074,0 9.116809,4.136158 9.116809,9.238366 z"
        sodipodi:ry="9.2383661"
        sodipodi:rx="9.1168089"
        sodipodi:cy="48.783836"
        sodipodi:cx="80.34948"
        id="path3800"
-       style="color:#000000;fill:#32d27f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;opacity:0.5"
+       style="opacity:0.5;color:#000000;fill:#00ffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        sodipodi:type="arc"
        transform="translate(13.128205,0.72934473)" />
   </g>
