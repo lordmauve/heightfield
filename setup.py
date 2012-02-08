@@ -36,6 +36,7 @@ setup(
     entry_points={
         'console_scripts': [
             'heightfield = heightfield.main:main',
+            'mapbuilder = heightfield.main:visible_deposition',
         ]
     }
 )
