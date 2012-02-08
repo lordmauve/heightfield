@@ -20,17 +20,19 @@ class Viewer(threading.Thread):
     
     def repaint_rgb(self):
         """Draw the surface to the screen"""
-        with self.lock:
-            self.screen.lock()
-            try:
-                for y in xrange(self.surface.size):
-                    for x in xrange(self.surface.size):
-                        h = self.surface[x, y]
-                        val = max(0, min(1.0, h * 0.1) * 255)
-                        col = self.colormap[int(val)]
-                        self.screen.set_at((x, y), col)
-            finally:
-                self.screen.unlock()
+        if self.surface.dirty:
+            with self.lock:
+                self.screen.lock()
+                try:
+                    for y in xrange(self.surface.size):
+                        for x in xrange(self.surface.size):
+                            h = self.surface[x, y]
+                            val = max(0, min(1.0, h * 0.1) * 255)
+                            col = self.colormap[int(val)]
+                            self.screen.set_at((x, y), col)
+                    self.surface.dirty = False
+                finally:
+                    self.screen.unlock()
 
     def run(self):
         clock = pygame.time.Clock()

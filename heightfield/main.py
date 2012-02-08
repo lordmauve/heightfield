@@ -60,9 +60,9 @@ def visible_deposition():
         c = Surface.make_cone(size, height)
         sys.stdout.write('.')
         sys.stdout.flush()
-        for j in xrange(10):
+        for j in xrange(5):
             with viewer.lock:
-                for i in range(number // 10):
+                for i in range(number // 5):
                     xpos = random.randint(-size, SIZE)
                     ypos = random.randint(-size, SIZE)
                     landscape.blit(c, xpos, ypos)

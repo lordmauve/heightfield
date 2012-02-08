@@ -23,7 +23,11 @@ setup(
     url='https://bitbucket.org/lordmauve/heightfield',
     install_requires=[
         'PIL>=1.1.6',
+        'numpy>=1.5.1'
     ],
+    extras_require = {
+        'pygameviewer': ['pygame>=1.9']
+    },
     license='LGPL',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -36,7 +40,7 @@ setup(
     entry_points={
         'console_scripts': [
             'heightfield = heightfield.main:main',
-            'mapbuilder = heightfield.main:visible_deposition',
+            'mapbuilder = heightfield.main:visible_deposition [pygameviewer]',
         ]
     }
 )
