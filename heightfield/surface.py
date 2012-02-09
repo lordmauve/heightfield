@@ -1,9 +1,7 @@
 import math
 from numpy import zeros
-from PIL import Image
 from pkg_resources import resource_stream
 
-colours = Image.open(resource_stream(__name__, 'data/heightmap.png'))
 
 
 class Surface(object):
@@ -64,11 +62,13 @@ class Surface(object):
         self.dirty = True
 
     def to_pil(self):
+        from PIL import Image
+        colours = Image.open(resource_stream(__name__, 'data/heightmap.png'))
+        colormap = list(colours.getdata())
+        out = []
         im = Image.new(colours.mode, (self.size, self.size))
-        for y in xrange(self.size):
-            for x in xrange(self.size):
-                h = self[x, y]
-                val = max(0, min(1.0, h * 0.1) * 255)
-                col = colours.getpixel((int(val), 0))
-                im.putpixel((x, y), col)
+        for h in self.surface.flat:
+            val = max(0, min(1.0, h * 0.1) * 255)
+            out.append(colormap[int(val)])
+        im.putdata(out)
         return im

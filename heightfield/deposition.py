@@ -22,6 +22,12 @@ ISLANDS = [
     (30, 0.1, 2000),
 ]
 
+CONTINENTS = [
+    (500, 2, 6),
+    (200, 0.5, 15),
+    (70, 0.1, 300),
+    (30, 0.04, 2000),
+]
 
 def deposit(landscape, octaves, base_height=0, progress_callback=None):
     w = h = landscape.size

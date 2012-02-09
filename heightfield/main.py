@@ -1,6 +1,6 @@
 import sys
 from .surface import Surface
-from .deposition import deposit, ISLANDS
+from .deposition import deposit, ISLANDS, CONTINENTAL, CONTINENTS
 
 
 # default heightfield size
@@ -63,7 +63,7 @@ def main():
     else:
         callback = get_cli_callback()
 
-    deposit(landscape, ISLANDS, progress_callback=callback)
+    deposit(landscape, CONTINENTS, progress_callback=callback)
 
     if options.output:
         print "Writing %s..." % options.output

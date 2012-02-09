@@ -9,6 +9,7 @@ long_description = open(readme, 'rU').read().decode('utf8')
 from heightfield import __version__
 version = '.'.join([str(component) for component in __version__])
 
+
 setup(
     name='heightfield',
     version=version,
