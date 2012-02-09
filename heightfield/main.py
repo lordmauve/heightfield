@@ -40,22 +40,31 @@ else:
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.exit("Usage: heightfield <output file>")
+    from optparse import OptionParser
 
-    outfile = sys.argv[1]
-    landscape = Surface(SIZE)
+    parser = OptionParser()
+    parser.add_option('-d', '--display', help='Incremental rendering of the heightfield generation', action='store_true')
+    parser.add_option('-s', '--size', type='int', help='Size of heightfield to generate', default=SIZE)
+    parser.add_option('-o', '--output', help='File to write output to')
 
-    callback = get_cli_callback()
+    options, args = parser.parse_args()
+
+    if not options.output and not options.display:
+        parser.error("You must specify a file to output to (-o) if incremental rendering is not enabled (-d).")
+
+    landscape = Surface(options.size)
+    if options.display:
+        from .viewer.pygameviewer import Viewer
+        from pkg_resources import resource_stream
+        landscape = Surface(SIZE)
+        viewer = Viewer(landscape, resource_stream(__name__, 'data/heightmap.png'))
+        viewer.start()
+        callback = viewer.progress_callback
+    else:
+        callback = get_cli_callback()
+
     deposit(landscape, ISLANDS, progress_callback=callback)
-    print "Writing %s..." % outfile
-    landscape.to_pil().save(outfile)
 
-
-def visible_deposition():
-    from .viewer.pygameviewer import Viewer
-    from pkg_resources import resource_stream
-    landscape = Surface(SIZE)
-    viewer = Viewer(landscape, resource_stream(__name__, 'data/heightmap.png'))
-    viewer.start()
-    deposit(landscape, ISLANDS, progress_callback=viewer.progress_callback)
+    if options.output:
+        print "Writing %s..." % options.output
+        landscape.to_pil().save(options.output)
