@@ -56,7 +56,7 @@ def main():
     if options.display:
         from .viewer.pygameviewer import Viewer
         from pkg_resources import resource_stream
-        landscape = Surface(SIZE)
+        landscape = Surface(options.size)
         viewer = Viewer(landscape, resource_stream(__name__, 'data/heightmap.png'))
         viewer.start()
         callback = viewer.progress_callback

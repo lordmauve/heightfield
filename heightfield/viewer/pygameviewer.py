@@ -1,44 +1,41 @@
 import sys
 import pygame
 import threading
+from numpy import ndenumerate
 
 pygame.display.init()
+
 
 class Viewer(threading.Thread):
     def __init__(self, surface, colormapfile):
         threading.Thread.__init__(self)
         self.surface = surface
         self.screen = pygame.display.set_mode((surface.size, surface.size))
-        self.lock = threading.RLock()
+        self.img = pygame.Surface((surface.size, surface.size), depth=32)
         self.load_colormap(colormapfile)
 
     def load_colormap(self, mapfile):
-        map = pygame.image.load(mapfile)
-        self.colormap = [pygame.Color('black')] * 256
-        for i in xrange(map.get_width()):
-            self.colormap[i] = map.get_at((i, 0))
-    
+        map = pygame.image.load(mapfile).convert(self.img)
+        self.colormap = pygame.surfarray.pixels2d(map)[..., 0]
+
     def repaint_rgb(self):
         """Draw the surface to the screen"""
         if self.surface.dirty:
-            with self.lock:
-                self.screen.lock()
-                try:
-                    for y in xrange(self.surface.size):
-                        for x in xrange(self.surface.size):
-                            h = self.surface[x, y]
-                            val = max(0, min(1.0, h * 0.1) * 255)
-                            col = self.colormap[int(val)]
-                            self.screen.set_at((x, y), col)
-                    self.surface.dirty = False
-                finally:
-                    self.screen.unlock()
-
+            surf = pygame.surfarray.pixels2d(self.img)
+            for pos, h in ndenumerate(self.surface.surface):
+                val = max(0, min(255, int(h * 25.5)))
+                col = self.colormap[val]
+                surf[pos] = col
+            self.surface.dirty = False
+            del surf
+            self.screen.blit(self.img, (0, 0))
 
     def progress_callback(self, surface, pass_, passes, fraction):
+        """Use this viewer to show the progress of the deposition"""
         self.repaint_rgb()
 
     def run(self):
+        """Run the event loop"""
         clock = pygame.time.Clock()
         while True:
             clock.tick(6)
