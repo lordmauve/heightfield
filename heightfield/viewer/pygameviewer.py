@@ -34,6 +34,10 @@ class Viewer(threading.Thread):
                 finally:
                     self.screen.unlock()
 
+
+    def progress_callback(self, surface, pass_, passes, fraction):
+        self.repaint_rgb()
+
     def run(self):
         clock = pygame.time.Clock()
         while True:
@@ -41,5 +45,4 @@ class Viewer(threading.Thread):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
-            self.repaint_rgb()
             pygame.display.flip()

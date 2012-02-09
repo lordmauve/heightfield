@@ -7,7 +7,7 @@ colours = Image.open(resource_stream(__name__, 'data/heightmap.png'))
 
 
 class Surface(object):
-    def __init__(self, size, fill=0):
+    def __init__(self, size):
         self.surface = zeros((size, size))
         self.size = size
         self.dirty = True
@@ -59,8 +59,8 @@ class Surface(object):
         h = img.size - sy
         dx2 = min(dx + w, self.size)
         dy2 = min(dy + h, self.size)
-        sw, sh = self.surface[dx:dx2,dy:dy2].shape
-        self.surface[dx:dx2,dy:dy2] += img.surface[sx:sx+sw,sy:sy+sh]
+        sw, sh = self.surface[dx:dx2, dy:dy2].shape
+        self.surface[dx:dx2, dy:dy2] += img.surface[sx:sx + sw, sy:sy + sh]
         self.dirty = True
 
     def to_pil(self):

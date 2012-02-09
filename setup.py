@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-# Load long_description from README.rst
+# Load long_description from README
 readme = os.path.join(os.path.dirname(__file__), 'README')
 long_description = open(readme, 'rU').read().decode('utf8')
 
@@ -25,8 +25,9 @@ setup(
         'PIL>=1.1.6',
         'numpy>=1.5.1'
     ],
-    extras_require = {
-        'pygameviewer': ['pygame>=1.9']
+    extras_require={
+        'pygameviewer': ['pygame>=1.9'],
+        'progress': ['progressbar==2.2']
     },
     license='LGPL',
     classifiers=[
