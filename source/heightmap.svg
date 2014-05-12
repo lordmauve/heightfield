@@ -108,7 +108,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -124,7 +124,7 @@
        height="1"
        x="11.428572"
        y="85.647896"
-       inkscape:export-filename="/home/mauve/dev/fractal/colours.png"
+       inkscape:export-filename="/home/mauve/dev/heightfield/heightfield/data/heightmap.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path

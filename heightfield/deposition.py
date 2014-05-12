@@ -29,6 +29,41 @@ CONTINENTS = [
     (30, 0.04, 2000),
 ]
 
+
+def geometric(initial, ratio):
+    """Generate an infinite geometric sequence"""
+    v = initial
+    while True:
+        yield v
+        v *= ratio
+
+        
+def octaves(size_seq, height_seq, num_seq, depth=None):
+    """Combine three sequences of numbers to yield parameters for deposition passes."""
+    size = iter(size_seq)
+    height = iter(height_seq)
+    number = iter(num_seq)
+    c = 0
+    while True:
+        s = size.next()
+        if s < 1:
+            break
+        h = height.next()
+        n = number.next()
+        yield int(s + 0.5), h, int(n + 0.5)
+        c += 1
+        if depth is not None and c >= depth:
+            break
+
+
+ISLANDS = list(octaves(
+    size_seq=geometric(200, 0.6),
+    height_seq=geometric(2, 0.5),
+    num_seq=geometric(6, 5),
+    depth=7
+))
+
+
 def deposit(landscape, octaves, base_height=0, progress_callback=None):
     w = h = landscape.size
     landscape.surface += base_height
@@ -36,7 +71,7 @@ def deposit(landscape, octaves, base_height=0, progress_callback=None):
     total_area = 0.0
     scaled_octaves = []
     for size, height, number in octaves:
-        number = int(number * (w / 512.0) * (h / 512.0))
+        number = max(1, int(number * (w / 512.0) * (h / 512.0)))
         total_area += number * size * size
         scaled_octaves.append((size, height, number))
 

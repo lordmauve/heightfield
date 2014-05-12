@@ -1,5 +1,5 @@
 import math
-from numpy import zeros
+from numpy import zeros, ndenumerate
 from pkg_resources import resource_stream
 
 
@@ -30,13 +30,26 @@ class Surface(object):
     def make_cone(size, height):
         """Create a surface of size x size representing a cone of height"""
         s = Surface(size)
-        w = float(size - 1)
+        w = size - 0.5
         for x in range(size):
             for y in range(size):
                 dx = 2.0 * x / w - 1.0
                 dy = 2.0 * y / w - 1.0
                 h = max(0, 1.0 - math.sqrt(dx ** 2 + dy ** 2))
                 s[x, y] = h * height
+        return s
+
+    @staticmethod
+    def make_dome(size, height):
+        """Create a surface of size x size representing a mound"""
+        s = Surface(size)
+        w = size * 0.9
+        for (x, y), h in ndenumerate(s.surface):
+            dx = 2.0 * x / w - 1.0
+            dy = 2.0 * y / w - 1.0
+            h = 1.0 - (dx ** 2 + dy ** 2)
+            #h = math.sqrt(hyp) if hyp > 0 else 0
+            s[x, y] = h * height
         return s
 
     def blit(self, img, x, y):

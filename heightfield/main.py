@@ -46,24 +46,28 @@ def main():
     parser.add_option('-d', '--display', help='Incremental rendering of the heightfield generation', action='store_true')
     parser.add_option('-s', '--size', type='int', help='Size of heightfield to generate', default=SIZE)
     parser.add_option('-o', '--output', help='File to write output to')
+    parser.add_option('-c', '--centre', type='int', help='Centre bias of the world', default=0)
 
     options, args = parser.parse_args()
 
     if not options.output and not options.display:
         parser.error("You must specify a file to output to (-o) if incremental rendering is not enabled (-d).")
 
-    landscape = Surface(options.size)
+    if options.centre:
+        landscape = Surface.make_dome(options.size, options.centre)
+        landscape.surface -= options.centre
+    else:
+        landscape = Surface(options.size)
     if options.display:
         from .viewer.pygameviewer import Viewer
         from pkg_resources import resource_stream
-        landscape = Surface(options.size)
         viewer = Viewer(landscape, resource_stream(__name__, 'data/heightmap.png'))
         viewer.start()
         callback = viewer.progress_callback
     else:
         callback = get_cli_callback()
 
-    deposit(landscape, CONTINENTS, progress_callback=callback)
+    deposit(landscape, ISLANDS, progress_callback=callback)
 
     if options.output:
         print "Writing %s..." % options.output
